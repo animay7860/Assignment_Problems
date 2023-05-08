@@ -1,0 +1,31 @@
+A.How many types of tigers can be found in the taxonomy table of the dataset? What is the "ncbi_id" of the Sumatran Tiger? (hint: use the biological name of the tiger)
+
+Answer:-
+SELECT COUNT(*) as num_tigers, ncbi_id
+FROM taxonomy
+WHERE species LIKE '%tiger%'
+GROUP BY ncbi_id;
+This query will return the number of tiger species found in the taxonomy table and the ncbi_id for each species.
+SELECT ncbi_id
+FROM taxonomy
+WHERE species = 'Panthera tigris sumatrae';
+This query will return the ncbi_id for the Sumatran Tiger
+
+
+B.Find all the columns that can be used to connect the tables in the given database.
+
+Answer:-
+To find all the columns that can be used to connect the tables in the given database, we need to look for columns that appear in multiple tables.
+
+SELECT DISTINCT column_name, data_type
+FROM information_schema.columns
+WHERE table_schema = 'rfam' AND column_name IN (
+  SELECT column_name
+  FROM information_schema.columns
+  WHERE table_schema = 'rfam'
+  GROUP BY column_name, data_type
+  HAVING COUNT(*) > 1
+)
+ORDER BY column_name;
+
+This query uses the information_schema.columns table to find all columns that have the same name and data type in multiple tables in the rfam schema. The query returns the column name and data type for each matching column, and orders the results by column name

@@ -1,0 +1,8 @@
+4.This question is to test your aptitude for writing small shell scripts on Unix. You are given this URL https://www.amfiindia.com/spages/NAVAll.txt. Write a shell script that extracts the Scheme Name and Asset Value fields only and saves them in a csv file. 
+Answer:-
+
+# download the file from the URL
+wget -O NAVAll.txt https://www.amfiindia.com/spages/NAVAll.txt
+The wget command downloads the file from the given URL and saves it as NAVAll.txt.
+
+cat NAVAll.txt | cut -d ";" -f 4,5 | tr ";" "," > animay.csv
